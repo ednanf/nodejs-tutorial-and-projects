@@ -1,44 +1,52 @@
-const http = require('http');
-const { readFileSync } = require('fs');
+const express = require('express');
 
-// Get all files
-const homePage = readFileSync('./navbar-app/index.html');
-const homeStyles = readFileSync('./navbar-app/styles.css');
-const homeImage = readFileSync('./navbar-app/logo.svg');
-const homeLogic = readFileSync('./navbar-app/browser-app.js');
+const { products } = require('./data');
 
-const server = http.createServer((req, res) => {
-  const url = req.url;
-  // Home page
-  if (url === '/') {
-    res.writeHead(200, { 'content-type': 'text/html' });
-    res.write(homePage);
-    res.end();
-  }
-  // Styles
-  else if (url === '/styles.css') {
-    res.writeHead(200, { 'content-type': 'text/css' });
-    res.write(homeStyles);
-    res.end();
-  }
-  // Logo/images
-  else if (url === '/logo.svg') {
-    res.writeHead(200, { 'content-type': 'image/svg+xml' });
-    res.write(homeImage);
-    res.end();
-  }
-  // Logic
-  else if (url === '/browser-app.js') {
-    res.writeHead(200, { 'content-type': 'text/javascript' });
-    res.write(homeLogic);
-    res.end();
-  }
-  // Logo
-  else {
-    res.writeHead(404, { 'content-type': 'text/html' });
-    res.write('<h1>404 Page</h1>');
-    res.end();
-  }
+const app = express();
+
+app.get('/', (req, res) => {
+  res
+    .status(200)
+    .send('<h1>Home Page</h1><a href="/api/products">Products</a>');
 });
 
-server.listen(8000);
+app.get('/api/products', (req, res) => {
+  const newProducts = products.map((product) => {
+    const { id, name, image } = product; // destructure product to retrieve only what is needed
+    return { id, name, image };
+  });
+  res.status(200).json(newProducts);
+});
+
+app.get('/api/products/:productId', (req, res) => {
+  const { productId } = req.params; // extracting the :productId from params
+  const singleProduct = products.find(
+    (product) => product.id === Number(productId),
+  );
+  if (!singleProduct) {
+    return res.status(404).send('<h1>404 - Product does not exist!</h1>');
+  }
+  res.status(200).json(singleProduct);
+});
+
+app.get('/api/v1/query', (req, res) => {
+  const { search, limit } = req.query;
+  let sortedProducts = [...products];
+  if (search) {
+    sortedProducts = sortedProducts.filter((product) => {
+      return product.name.startsWith(search);
+    });
+  }
+  if (limit) {
+    sortedProducts = sortedProducts.slice(0, Number(limit));
+  }
+  if (sortedProducts.length < 1) {
+    // res.status(200).send('No products matched your search!');
+    return res.status(200).json({ success: true, data: [] });
+  }
+  return res.status(200).json(sortedProducts);
+});
+
+app.listen(8000, () => {
+  console.log('Server is listening on localhost:8000');
+});
