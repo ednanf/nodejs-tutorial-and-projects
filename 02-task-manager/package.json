@@ -1,19 +1,19 @@
 {
-  "name": "jobs",
+  "name": "node-task-manager",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple task manager using NodeJS and MongoDB.",
   "main": "app.js",
   "scripts": {
     "start": "dotenvx run -- nodemon app.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "node",
+    "mongodb"
+  ],
+  "author": "Ednan Rogério Frizzera Filho",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
     "mongoose": "^8.15.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.7"
   }
 }
