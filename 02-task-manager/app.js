@@ -16,7 +16,6 @@ app.use(express.json());
 app.use('/api/v1/tasks', tasksRoutes);
 
 // Server startup
-
 const start = async () => {
   try {
     await connectDB(MONGO_URI);
