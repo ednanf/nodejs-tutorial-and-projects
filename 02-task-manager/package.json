@@ -4,7 +4,7 @@
   "description": "Simple task manager using NodeJS and MongoDB.",
   "main": "app.js",
   "scripts": {
-    "start": "dotenvx run -- nodemon app.js"
+    "start": "nodemon app.js"
   },
   "keywords": [
     "node",
@@ -13,7 +13,12 @@
   "author": "Ednan Rogério Frizzera Filho",
   "license": "ISC",
   "dependencies": {
+    "@dotenvx/dotenvx": "^1.44.1",
+    "axios": "^1.9.0",
     "express": "^4.17.1",
     "mongoose": "^8.15.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }

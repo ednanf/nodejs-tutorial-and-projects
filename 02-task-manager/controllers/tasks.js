@@ -5,9 +5,7 @@ const Task = require('../models/Task');
 const getAllTasks = async (req, res) => {
   try {
     const tasks = await Task.find({});
-    res
-      .status(200)
-      .json({ success: true, message: 'GET all tasks', data: { tasks } });
+    res.status(200).json({ tasks });
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -19,11 +17,7 @@ const getAllTasks = async (req, res) => {
 const createTask = async (req, res) => {
   try {
     const task = await Task.create(req.body);
-    res.status(201).json({
-      success: true,
-      message: 'POST task',
-      data: { contents: task },
-    });
+    res.status(201).json({ task });
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -44,11 +38,7 @@ const getSingleTask = async (req, res) => {
         .status(404)
         .json({ success: false, message: `No task with id: ${taskID}` });
     }
-    res.status(200).json({
-      success: true,
-      message: 'GET single task',
-      data: { task },
-    });
+    res.status(200).json({ task });
   } catch (error) {
     // If the id's syntax is wrong or any other issue exists
     res.status(500).json({
@@ -72,9 +62,7 @@ const updateTask = async (req, res) => {
         .status(404)
         .json({ success: false, message: `No task with id: ${taskID}` });
     }
-    res
-      .status(200)
-      .json({ success: true, message: 'PATCH task', data: { contents } });
+    res.status(200).json({ task });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
@@ -89,7 +77,7 @@ const deleteTask = async (req, res) => {
         .status(404)
         .json({ success: false, message: `No task with id: ${taskID}` });
     }
-    res.status(200).json({ success: true, message: 'DELETE task' });
+    res.status(200).json({ task });
   } catch (error) {
     res.status(500).json({
       success: false,

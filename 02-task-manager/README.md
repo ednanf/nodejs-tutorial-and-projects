@@ -15,3 +15,30 @@
 | GET    | /api/v1/tasks/:id | get single task |
 | PATCH  | /api/v1/tasks/:id | update task     |
 | DELETE | /api/v1/tasks/:id | delete task     |
+
+## Dependencies
+
+### Dependencies
+
+- @dotenvx/dotenvx (^1.44.1)
+Loads environment variables from .env files.
+
+- axios (^1.9.0)
+Promise-based HTTP client for making HTTP requests.
+
+- express (^4.17.1)
+Web framework for Node.js, used for routing and middleware.
+
+- mongoose (^8.15.0)
+ODM (Object Data Modeling) library for MongoDB and Node.js.
+
+### Dev Dependencies
+- nodemon (^3.1.10)
+Utility that automatically restarts the Node.js application when file changes are detected.
+
+### Script Dependency Flow
+
+start:
+Runs nodemon app.js
+Loads environment variables using @dotenvx/dotenvx
+Starts the server with nodemon for live-reloading

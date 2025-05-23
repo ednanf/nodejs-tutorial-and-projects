@@ -1,4 +1,5 @@
 // Imports
+require('@dotenvx/dotenvx').config();
 const express = require('express');
 const app = express();
 
@@ -10,6 +11,7 @@ const PORT = 8000;
 const MONGO_URI = process.env.MONGO_URI;
 
 // Middleware
+app.use(express.static('./public'));
 app.use(express.json());
 
 // Routes
