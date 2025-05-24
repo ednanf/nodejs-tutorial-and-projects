@@ -4,7 +4,7 @@
   "description": "Simple task manager using NodeJS and MongoDB.",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "dev": "nodemon app.js"
   },
   "keywords": [
     "node",
