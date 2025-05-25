@@ -5,6 +5,7 @@ const app = express();
 
 const tasksRoutes = require('./routes/tasks');
 const connectDB = require('./utils/connectDB');
+const notFound = require('./middleware/notFound');
 
 // Constants
 const PORT = 8000;
@@ -16,6 +17,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/v1/tasks', tasksRoutes);
+app.use(notFound);
 
 // Server startup
 const start = async () => {
