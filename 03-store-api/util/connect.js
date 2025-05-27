@@ -1,12 +1,9 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const connectDB = (url) => {
-  return mongoose.connect(url, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true,
-  })
-}
+const connectDB = async (uri) => {
+  await mongoose
+    .connect(uri)
+    .then(() => console.log('[system] Connected to MongoDB Atlas...'));
+};
 
-module.exports = connectDB
+module.exports = connectDB;
